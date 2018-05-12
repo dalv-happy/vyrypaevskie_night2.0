@@ -1,0 +1,168 @@
+$ind: 16px;
+
+@import "~bootstrap/scss/bootstrap";
+@import "confeti";
+
+html, body, #app {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: 'SF Pro Display';
+  background: rgba(255, 255, 255, .2);
+}
+
+body {
+  background: #fff url("~/img/bg.jpg");
+  background-size: cover;
+}
+
+.content-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  height: 100%;
+  .name-show {
+    color: #fff;
+    text-align: center;
+    font-size: 6rem;
+    text-transform: uppercase;
+    font-weight: 800;
+    text-shadow: 0 0 10px rgba(0, 0, 0, .4);
+  }
+  .name-game {
+    color: #fff;
+    text-align: center;
+    font-size: 3rem;
+    text-transform: uppercase;
+    font-weight: 300;
+    margin-bottom: 4rem;
+    background: #212529;
+    padding: $ind;
+    line-height: 1;
+  }
+  .questions-text {
+    background: #ffffff;
+    padding: $ind;
+    line-height: 1;
+    font-size: 4.9rem;
+    font-weight: 800;
+    text-transform: uppercase;
+  }
+  .time {
+    $wh: 150px;
+    width: $wh;
+    height: $wh;
+    margin: auto;
+    border: 5px solid #fff;
+    border-radius: 50%;
+    line-height: $wh;
+    font-size: 4.9rem;
+    color: #fff;
+    background: #00000057;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  }
+  .count {
+    color: #ffffff;
+    font-size: 4rem;
+    border-bottom: 3px solid #fff;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.9);
+  }
+}
+
+.box {
+  width: 300px;
+  height: 300px;
+  border-radius: 5px;
+  box-shadow: 0 2px 30px rgba(black, .2);
+  background: lighten(#f0f4c3, 10%);
+  position: relative;
+  overflow: hidden;
+  transform: translate3d(0, 0, 0);
+  border-radius: 50%;
+  margin: auto;
+}
+
+.wave {
+  opacity: .4;
+  position: absolute;
+  top: 3%;
+  left: 50%;
+  background: #0af;
+  width: 500px;
+  height: 500px;
+  margin-left: -250px;
+  margin-top: -250px;
+  transform-origin: 50% 48%;
+  border-radius: 43%;
+  animation: drift 3000ms infinite linear;
+}
+
+.wave.-three {
+  animation: drift 5000ms infinite linear;
+}
+
+.wave.-two {
+  animation: drift 7000ms infinite linear;
+  opacity: .1;
+  background: yellow;
+}
+
+.box:after {
+  content: '';
+  display: block;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(#e8a, 1), rgba(#def, 0) 80%, rgba(white, .5));
+  z-index: 11;
+  transform: translate3d(0, 0, 0);
+}
+
+.title {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 1;
+  top: 30%;
+  text-align: center;
+  transform: translate3d(0, 0, 0);
+  color: white;
+  text-transform: uppercase;
+  font-family: 'Playfair Display', serif;
+  letter-spacing: .4em;
+  font-size: 24px;
+  text-shadow: 0 1px 0 rgba(black, .1);
+  text-indent: .3em;
+}
+
+@keyframes drift {
+  from {
+    transform: rotate(0deg);
+  }
+  from {
+    transform: rotate(360deg);
+  }
+}
+
+//Кто быстрее
+%afore {
+  width: 50%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  background: #4caf5061;
+}
+
+.left-afore {
+  @extend %afore;
+  left: 0;
+}
+
+.right-afore {
+  @extend %afore;
+  right: 0;
+}
+
