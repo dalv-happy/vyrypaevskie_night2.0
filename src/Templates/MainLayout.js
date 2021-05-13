@@ -1,6 +1,7 @@
 import React from 'react';
 import Sound from 'react-sound';
 import ReactKeymaster from 'react-keymaster';
+import ioClient from "../socket";
 
 
 class MainLayout extends React.Component {
@@ -16,10 +17,26 @@ class MainLayout extends React.Component {
         this.song = "horn.mp3";
     }
 
+    componentDidMount() {
+        const self = this;
+        ioClient.on('connect', () => {
+            ioClient.on("event", function (data) {
+                console.log(data);
+                if (data !== 'none') {
+                    self.song = "select2.mp3";
+                    self.playSound();
+                }
+                self.setState({active: data});
+            });
+        })
+    }
+
     active(val) {
         console.log(val);
-        if (this.state.active == 'none')
+        ioClient.send(val);
+        if (this.state.active == 'none') {
             this.setState({active: val});
+        }
     }
 
     count(name) {
@@ -39,11 +56,11 @@ class MainLayout extends React.Component {
     render() {
         return (
             <div style={{height: '100%'}}>
-                {this.state.active == 'left' && (
-                    <div className="left-afore"></div>
+                {this.state.active === 'left' && (
+                    <div className="left-afore"/>
                 )}
-                {this.state.active == 'right' && (
-                    <div className="right-afore"></div>
+                {this.state.active === 'right' && (
+                    <div className="right-afore"/>
                 )}
 
                 <ReactKeymaster
@@ -81,8 +98,15 @@ class MainLayout extends React.Component {
                         this.playSound();
                     }}
                 />
+                <ReactKeymaster
+                    keyName="6"
+                    onKeyDown={() => {
+                        this.song = "select2.mp3";
+                        this.playSound();
+                    }}
+                />
                 <Sound
-                    url={this.song}
+                    url={"/" + this.song}
                     playStatus={this.state.playStatus}
                     playFromPosition={this.position}
                     onPlaying={(position) => {
@@ -92,17 +116,20 @@ class MainLayout extends React.Component {
 
                 <ReactKeymaster//левая сторона
                     keyName="shift"
-                    onKeyDown={this.active.bind(this, "left")}
+                    onKeyDown={() => {
+                        this.active("left")
+                    }}
                 />
                 <ReactKeymaster//правая сторона
                     keyName="backspace"
-                    onKeyDown={this.active.bind(this, "right")}
+                    onKeyDown={() => {
+                        this.active("right")
+                    }}
                 />
                 <ReactKeymaster//сброс
-                    keyName="space"
+                    keyName="ctrl"
                     onKeyDown={() => {
-                        this.song = "error.mp3";
-                        this.playSound();
+                        this.active("none")
                         this.setState({active: 'none'});
                     }}
                 />

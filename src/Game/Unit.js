@@ -20,7 +20,7 @@ export default class Unit extends React.Component {
                     "лошадь",
                 ],
                 [
-                    "MacBook",
+                    "Ноутбук",
                     "Книга",
                     "Одеяло",
                     "Подушка",
@@ -70,7 +70,7 @@ export default class Unit extends React.Component {
     }
 
     render() {
-        let i = this.state.i;
+        let i = parseInt(this.props.match.params.id) || 0;
         let j = this.state.j;
 
         return (

@@ -8,46 +8,10 @@ export default class Hands extends React.Component {
         this.state = {
             word: [
                 [
-                    "Снежок",
-                    "Лопата",
-                    "Сосулька",
-                    "Лыжи",
-                    'Шарф',
-                    'Хоккей',
-                    'Рукавицы',
-                    'Румянец',
-                    'Валенки',
-                    'Санки',
-                    'Снежная баба',
-                    'Шуба',
-                    'Метель',
-                    'Сноуборд',
-                    'Холод',
-                    'Зимняя рыбалка',
-                    'Дед Мороз',
-                    'Коньки',
-                    'горка',
+                    "Порка", "археолог", "Камасутра", "электрик", "БДСМ", "писатель", "гинеколог", "шахтер", "промоутер", "Тверкинг", "дальнобойщик", "Презерватив", "порно", "художник", "актер", "Флирт", "психиатр", "продавец.", "полицейский", "бусы", "космонавт", "Стюардесса"
                 ],
                 [
-                    'Кольца',
-                    'Фата',
-                    'Букет',
-                    'Тамада',
-                    'Драка',
-                    'Невеста',
-                    'Шампанское',
-                    'Танец',
-                    'Фотограф',
-                    'Голубь',
-                    'Подвязка',
-                    'Деньги',
-                    'Туфля',
-                    'Роспись',
-                    'Поцелуй',
-                    'Фейерверк',
-                    'Лимузин',
-                    'каравай',
-                    'свидетель',
+                    "скульптор", "Вибратор", "бухгалтер", "пожарный", "Холостяк", "ветеринар",  "юрист", "судья", "Лифчик", "акушерка", "сантехник", "менеджер", "Трусы", "секс", "Гинеколог", "Уролог", "Засос", "архитектор", "лифтер", "режиссер", "пчеловод", "Проститутка"
                 ],
             ],
             i: 0,
@@ -72,7 +36,7 @@ export default class Hands extends React.Component {
     }
 
     tick() {
-        if (this.state.time == 120) {
+        if (this.state.time === 180) {
             this.setState({isEnd: 1});
             clearInterval(this.timer);
         }
@@ -88,12 +52,12 @@ export default class Hands extends React.Component {
     }
 
     render() {
-        let i = this.state.i;
+        let i = parseInt(this.props.match.params.id) || 0;
         let j = this.state.j;
 
         return (
             <div>
-                {this.state.isEnd == 1 && (
+                {this.state.isEnd === 1 && (
                     <Sound
                         url="end.mp3"
                         playStatus={Sound.status.PLAYING}
@@ -101,12 +65,12 @@ export default class Hands extends React.Component {
                     />
                 )}
 
-                <h1 className="name-game">Чу✋ие руки</h1>
+                <h1 className="name-game">Чу✋ие руки (+18)</h1>
 
-                {this.state.isEnd == 0 && (
+                {this.state.isEnd === 0 && (
                     <div className="questions-text">{this.state.word[i][j]}</div>
                 )}
-                {this.state.isEnd == 1 && (
+                {this.state.isEnd === 1 && (
                     <div className="questions-text" onClick={() => {
                         this.setState({i: 1, isEnd: 0, time: 0, j: 0});
                         this.position = 0;
